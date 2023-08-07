@@ -3,6 +3,8 @@ python -m pip install --upgrade pip
 
 pip install -r requirements.txt
 
+pip freeze > requirements.txt
+
 python manage.py makemigrations
 
 python manage.py collectstatic
