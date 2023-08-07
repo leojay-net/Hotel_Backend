@@ -22,7 +22,7 @@ drf-yasg
 Faker
 filelock
 gunicorn
-idna==
+idna
 inflection
 itypes
 Jinja2
