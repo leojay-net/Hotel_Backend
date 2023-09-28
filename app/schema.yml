@@ -393,6 +393,8 @@ components:
           maxLength: 1000
         room_number:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         booked:
           type: boolean
           default: false
@@ -416,6 +418,8 @@ components:
           maxLength: 1000
         room_number:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         booked:
           type: boolean
           default: false
@@ -490,8 +494,12 @@ components:
           maxLength: 1000
         price:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         room_number:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         uploaded_images:
           type: array
           items:
@@ -573,12 +581,16 @@ components:
           maxLength: 1000
         price:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         user:
           type: string
           nullable: true
           readOnly: true
         room_number:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         occupied:
           type: boolean
           readOnly: true
@@ -643,8 +655,12 @@ components:
           maxLength: 1000
         price:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         room_number:
           type: integer
+          maximum: 2147483647
+          minimum: -2147483648
         uploaded_images:
           type: array
           items:

@@ -50,15 +50,17 @@ class RoomImages(models.Model):
 
 class LogRoom(models.Model):
     id  = models.CharField(primary_key=True, default=generate_id, max_length=64)
+    email = models.EmailField()
     user = models.CharField(max_length=1000, null=True, blank=True)
     room_number = models.IntegerField(blank=False, null=False)
-    date_booked = models.DateField(default=today)
-    date_end = models.DateField(default=today)
+    booked_date = models.DateField(default=today)
+    end_date = models.DateField(default=today)
     booked = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField('date_created' ,auto_now=True)
 
     class Meta:
-        ordering = ['date_booked']
+        ordering = ['booked_date']
 
     
+
