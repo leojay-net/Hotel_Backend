@@ -115,23 +115,43 @@ class LogRoomView(CreateAPIView): # work on post
         end_date = request.data['end_date']
         logroom = LogRoom.objects.filter(room_number=room_number)
         date_list = str(booked_date).split('-')
+        date_list_end = str(end_date).split('-')
         booked_date = date(int(date_list[0]), int(date_list[1]), int(date_list[2]))
+        end_date = date(int(date_list_end[0]), int(date_list_end[1]), int(date_list_end[2]))
+        serializer = self.get_serializer(data=request.data)
+        a = 0
+        b = 0
+        c = 0
+        d = 0
 
-        for log in logroom:
-
-            if booked_date >= log.booked_date and booked_date <= log.end_date:
-                return Response({'error': "Room already booked"}, status=status.HTTP_306_RESERVED)
-            
+        if len(logroom) == 0 :
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                if (((booked_date < log.booked_date) and (end_date < log.booked_date)) or ((booked_date > log.end_date) and (end_date > log.end_date))) == True:
-                    serializer = self.get_serializer(data=request.data)
-                    if serializer.is_valid():
-                        serializer.save()
-                        return Response(serializer.data, status=status.HTTP_200_OK)
-                    else:
-                        return Response(data={"msg": serializer.errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+                return Response(data={"msg": serializer.errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        else:
+            for log in logroom:
+
+                if (booked_date >= log.booked_date and booked_date <= log.end_date):
+                    a+=1
+                    
+                
                 else:
-                    return Response({'msg':"Room already exists in log"}, status=status.HTTP_306_RESERVED)
+                    if (((booked_date < log.booked_date) and (end_date < log.booked_date)) or ((booked_date > log.end_date) and (end_date > log.end_date))) == True:
+                        b +=1
+                        
+                        
+            if a > 0:
+                return Response({'error': "Room already booked"}, status=status.HTTP_306_RESERVED)
+            elif a == 0 and b > 0:
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_300_MULTIPLE_CHOICES)
+                else:
+                    return Response(data={"msg": serializer.errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
+            elif b == 0:
+                return Response({'msg':"Room already exists in log"}, status=status.HTTP_306_RESERVED)
 
 
 class UpdateRoom(GenericAPIView): # work on post

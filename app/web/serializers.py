@@ -31,10 +31,10 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
 class LogRoomSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     booked = serializers.BooleanField(default=False)
-    booked_date = serializers.DateField(format="%Y-%M-%D", input_formats=["%Y-%M-%D"])
-    end_date = serializers.DateField(format="%Y-%M-%D", input_formats=["%Y-%M-%D"])
+    booked_date = serializers.DateField(format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
+    end_date = serializers.DateField(format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
     class Meta:
         model = LogRoom
-        fields =["id", "user", "room_number", "booked", "booked_date", "end_date"]
+        fields =["id", "user", "email", "room_number", "booked", "booked_date", "end_date"]
 
 
